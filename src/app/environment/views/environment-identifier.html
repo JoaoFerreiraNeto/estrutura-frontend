@@ -1,8 +1,0 @@
-<form name="identifier" class="personalizacao margin-top-50" align="center">
-  <div class="col-md-1 col-md-offset-2 padding-zero identificador" ng-class="{ 'identificador-verde': identifier.name.$valid }">
-    <div class="margin-top-5">Nome*</div>
-  </div>
-  <div class="col-md-7 padding-zero input-nome">
-    <input placeholder="Digite o nome do seu ambiente..."type="text" size=20 maxlength=20 name="name" required ng-class="{ 'input-nome-verde': identifier.name.$valid }" ng-model="environment.selected.environmentName" ng-change="controller.checkBtnInstallDisabled()">
-  </div>
-</form>
