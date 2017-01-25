@@ -1,0 +1,22 @@
+[
+  {
+    "cloudEnvName": "Stack Empresas",
+    "creationDate": "2016-07-19T09:51:46",
+    "value": 1000.7
+  },
+  {
+    "cloudEnvName": "Stack Backup",
+    "creationDate": "2016-07-19T09:51:46",
+    "value": 98.3
+  },
+  {
+    "cloudEnvName": "Stack Economia",
+    "creationDate": "2016-07-19T09:51:46",
+    "value": 80.1
+  },
+  {
+    "cloudEnvName": "Stack Esportes",
+    "creationDate": "2016-07-19T09:51:46",
+    "value": 8.0
+  }
+]

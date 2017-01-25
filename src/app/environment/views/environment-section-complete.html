@@ -1,0 +1,107 @@
+<div class="col-sm-12 msg" ng-if="environment.bandwidthPerc >= '80'">
+  <div class="col-sm-4 col-lg-3 head padding-10" ng-class="{'danger-titulo': (environment.bandwidthPerc >= '80' && environment.bandwidthPerc < '100'), 'stopping-titulo': (environment.instanceStatus == 'STOPPED' || environment.bandwidthPerc >= '100')}">
+    <div class="vertical-align-msg">
+      <i class="fa fa-exclamation-triangle margin-right-10" aria-hidden="true"></i>IMPORTANTE
+    </div>
+  </div>
+  <div class="col-sm-8 col-lg-9 body padding-5" ng-class="{'danger-conteudo': (environment.bandwidthPerc >= '80' && environment.bandwidthPerc < '100'), 'stopping-conteudo': (environment.instanceStatus == 'RUNNING' || environment.bandwidthPerc >= '100')}">
+    <div class="vertical-align-msg" ng-if="(environment.bandwidthPerc >= '80' && environment.bandwidthPerc < '100')">
+      Você atingiu {{ environment.bandwidthPerc | number:0 }}% da sua banda, ao atingir 100% seu ambiente será parado, contrate mais pacote e continue usando.
+    </div>
+    <div class="vertical-align-msg" ng-if="(environment.bandwidthPerc >= '100')">
+      Você atingiu 100% da banda contratada.
+    </div>
+  </div>
+</div>
+<div class="col-sm-12 environment" ng-class="{'danger': (environment.bandwidthPerc >= '80' && environment.bandwidthPerc < '100' && environment.instanceStatus == 'RUNNING'), 'stopping': (environment.instanceStatus == 'STOPPED' || environment.bandwidthPerc >= '100'), 'install': (environment.instanceStatus == 'RUNNING' || environment.instanceStatus == 'INITIALIZING' && environment.bandwidthPerc < '80')}">
+  <div class="col-sm-4 col-lg-3 head">
+    <div class="margin-top-30 center">
+      <div class="col-md-12">
+        <h6 class="">{{ environment.dsPackage }}</h6>
+        <h1>{{ environment.description }}</h1>
+        <div class="health margin-top-30">
+          <div class="col-md-12"><strong class="title italic">Saúde do servidor</strong></div>
+          <div class="col-md-12">
+            <i class="fa fa-hand-stop-o"></i>
+            <div class="bar"></div>
+          </div>
+          <div ng-if="(environment.instanceStatus == 'RUNNING' || environment.instanceStatus == 'INITIALIZING' && environment.bandwidthPerc < '80')">Seu ambiente está bem</div>
+          <div ng-if="(environment.bandwidthPerc >= '80' && environment.bandwidthPerc < '100')">Contrate mais banda</div>
+          <div ng-if="(environment.instanceStatus == 'STOPPED')">Seu ambiente está parado</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-sm-8 col-lg-9 body">
+    <div class="row padding-20 padding-top-10">
+      <div class="col-md-4">
+
+        <h2>Configurações de rede</h2>
+        <div class="line-down">
+          <div class="col-md-5 box-head center padding-10">
+            Ip <br>Local
+          </div>
+          <div class="col-md-7 box-body padding-top-10 padding-bottom-10 center">
+            <div class="padding-top-5">
+              {{ environment.privateIp }}
+            </div>
+          </div>
+        </div>
+
+        <div class="col-md-5 box-head center padding-10">
+          Ip <br>Público<i class="fa fa-info-circle margin-left-5" aria-hidden="true" tr-tooltip="Caso seja utilizado o IP público entre servidores Terra Cloud a transferência será utilizada de sua banda contratada. Utilize o IP local para esses acessos."></i>
+        </div>
+        <div class="col-md-7 box-body padding-top-10 padding-bottom-10 center">
+          <div class="padding-top-5">
+            {{ environment.publicIp }}
+            <a class="btn-dominio" href="#"> DOMÍNIO </a>
+          </div>
+        </div>
+
+      </div>
+      <div class="col-md-4">
+        <h2>Pacote</h2>
+        <div class="col-md-12 box-body packages-info padding-20">
+          <div class="col-md-6 text-right padding-right-5">{{ environment.memory }} GB</div><div class="col-md-6 text-left padding-left-5"><strong>RAM</strong></div>
+          <div class="col-md-6 text-right padding-right-5">{{ environment.storage }} GB</div><div class="col-md-6 text-left padding-left-5"><strong>DISCO</strong></div>
+          <div class="col-md-6 text-right padding-right-5">{{ environment.cpu }} </div><div class="col-md-6 text-left padding-left-5"><strong>CPUs</strong></div>
+          <div class="col-md-6 text-right padding-right-5">{{ environment.bandWidth }}/s</div><div class="col-md-6 text-left padding-left-5"><strong>BANDA</strong></div>
+        </div>
+      </div>
+        <div class="col-md-4">
+            <h2>Controles</h2>
+            <div class="col-md-12">
+                <div class="row">
+                    <a href="" class="col-md-4 padding-15 green-dark"
+                       ng-click="controller.edit({environment: environment, action: 'downgrade'})"
+                       tr-register-selection="downgrade screen">
+                        <i class="fa fa-level-down"></i><div>Downgrade</div>
+                    </a>
+                    <a href="" class="col-md-4 padding-15 green-light"
+                       ng-click="controller.edit({environment: environment, action: 'upgrade'})"
+                       tr-register-selection="upgrade screen">
+                        <i class="fa fa-level-up"></i><div>Upgrade</div>
+                    </a>
+                    <a href="" class="col-md-4 padding-15 red-dark"
+                       ng-click="controller.deleteEnvironment(environment)">
+                        <i class="fa fa-close"></i><div>Remover</div>
+                    </a>
+                </div>
+                <div class="row">
+                    <a href="" class="col-md-4 padding-15 blue-light" ng-click="controller.restart(environment)">
+                        <i class="fa fa-rotate-left"></i><div>Reiniciar</div>
+                    </a>
+                    <a href="" class="col-md-4 padding-15 blue-dark" ng-click="controller.restore(environment)">
+                        <i class="fa fa-backward"></i><div>Restaurar</div>
+                    </a>
+                    <a href="" class="col-md-4 padding-15 orange"
+                       ng-click="controller.edit({environment: environment, action: 'metrics'})"
+                       tr-register-selection="metrics screen">
+                        <i class="fa fa-bar-chart-o"></i><div>Monitor</div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+  </div>
+</div>

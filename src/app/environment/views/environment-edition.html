@@ -1,0 +1,47 @@
+<div class="col-md-12">
+    <div class="col-md-12 padding-30 drop install">
+        <div class="titulo">{{ action }}</div>
+        <!-- ng-repeat -->
+        <div class="col-md-3 padding-10"
+             ng-click="controller.setPackage(package)"
+             ng-repeat="package in actionAvailablePackages | orderBy : ['scale', 'price', 'memory']"
+             tr-register-selection="package {{ package.dsInstanceType }}">
+            <div class="col-md-12 bloco-pacote padding-zero" ng-class="{ 'bloco-pacote-verde': package === controller.package }">
+                <div align="center" class="nome-pacote" ng-class="{ 'nome-pacote-verde': package === controller.package }">{{package.dsInstanceType}}</div>
+                <div class="desc-bloco">
+                    <div class="col-md-6 padding-2 bold desc-pacote" align="right" ng-class="{ 'desc-pacote-verde': package === controller.package }">{{package.memory}} GB</div>
+                    <div class="col-md-6 padding-2 desc-pacote" align="left" ng-class="{ 'desc-pacote-verde': package === controller.package }">Memória</div>
+                    <div class="col-md-6 padding-2 bold desc-pacote" align="right" ng-class="{ 'desc-pacote-verde': package === controller.package }">{{package.storage}} GB</div>
+                    <div class="col-md-6 padding-2 desc-pacote" align="left" ng-class="{ 'desc-pacote-verde': package === controller.package }">Disco</div>
+                    <div class="col-md-6 padding-2 bold desc-pacote" align="right" ng-class="{ 'desc-pacote-verde': package === controller.package }">{{package.cpu}}</div>
+                    <div class="col-md-6 padding-2 desc-pacote" align="left" ng-class="{ 'desc-pacote-verde': package === controller.package }">CPUs</div>
+                </div>
+                <div class="div-preco" ng-class="{ 'div-preco-verde': package === environment.selected.package }">
+                  <div class="col-md-12 margin-top-10" >
+                    <div class="text-center preco-center">
+                      <div class="preco-pacote">R$</div>
+                      <div class="preco-numero">{{package.price | number : 2}}</div>
+                      <div class="preco-pacote margin-top-10">/Mês</div>
+                    </div>
+                  </div>
+                </div>
+            </div>
+        </div>
+        <!-- Fim do ng-repeat -->
+        <div class="col-md-12 color-verde">
+            <span ng-if="actionAvailablePackages.length > 0">*Seu servidor será reiniciado para a atualização.</span>
+            <span ng-if="actionAvailablePackages.length === 0 && action === 'downgrade'">*Não há opções de downgrade, pois seu ambiente já está usando a configuração mínima de máquinas disponíveis.</span>
+            <span ng-if="actionAvailablePackages.length === 0 && action === 'upgrade'">*Não há opções de upgrade, pois seu ambiente já está usando a configuração máxima de máquinas disponíveis.</span>
+        </div>
+        <div class="col-md-12" align="right" ng-if="actionAvailablePackages.length > 0">
+            <div class="col-md-9">
+                <div class="valor-total preco-upgrade margin-top-20 color-verde">
+                  <spam class="margin-top-10 font-size-12">Total R$</spam><spam class="color-verde valor-total margin-left-5"> {{ controller.package.price | number : 2 }}</spam>
+                </div>
+            </div>
+            <div class="col-md-3 margin-top-15">
+                <button type="button" class="btn btn-instalar width-btn" ng-disabled="controller.btnUpdateDisabled" ng-click="controller.update()">{{ controller.btnUpdateLabel }}</button>
+            </div>
+        </div>
+    </div>
+</div>

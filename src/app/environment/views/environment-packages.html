@@ -1,0 +1,33 @@
+<div class="col-md-12 texto-criacao" ng-hide="!showPackages">Escolha um pacote:</div>
+<div class="col-md-12 padding-zero" ng-hide="!showPackages">
+  <!-- ng-repeat -->
+  <div class="col-md-3 padding-10"
+       ng-click="controller.setPackage(package); controller.checkBtnInstallDisabled()"
+       ng-repeat="package in environment.packages | orderBy : ['price', 'memory'] track by $index"
+       tr-register-selection="package {{ package.dsInstanceType }}">
+    <div class="col-md-12 bloco-pacote padding-zero" ng-class="{ 'bloco-pacote-verde': package === environment.selected.package }">
+      <div align="center" class="nome-pacote" ng-class="{ 'nome-pacote-verde': package === environment.selected.package }">{{package.dsInstanceType}}</div>
+      <div class="desc-bloco">
+        <div class="col-md-6 padding-1 bold desc-pacote" align="right" ng-class="{ 'desc-pacote-verde': package === environment.selected.package }">{{package.memory}} GB</div>
+        <div class="col-md-6 padding-1 desc-pacote" align="left" ng-class="{ 'desc-pacote-verde': package === environment.selected.package }">Memória</div>
+        <div class="col-md-6 padding-1 bold desc-pacote" align="right" ng-class="{ 'desc-pacote-verde': package === environment.selected.package }">{{package.storage}} GB</div>
+        <div class="col-md-6 padding-1 desc-pacote" align="left" ng-class="{ 'desc-pacote-verde': package === environment.selected.package }">Disco</div>
+        <div class="col-md-6 padding-1 bold desc-pacote" align="right" ng-class="{ 'desc-pacote-verde': package === environment.selected.package }">{{package.bandwidth}} GB</div>
+        <div class="col-md-6 padding-1 desc-pacote" align="left" ng-class="{ 'desc-pacote-verde': package === environment.selected.package }">Banda</div>
+        <div class="col-md-6 padding-1 bold desc-pacote" align="right" ng-class="{ 'desc-pacote-verde': package === environment.selected.package }">{{package.cpu}}</div>
+        <div class="col-md-6 padding-1 desc-pacote" align="left" ng-class="{ 'desc-pacote-verde': package === environment.selected.package }">CPUs</div>
+      </div>
+      <div class="div-preco" ng-class="{ 'div-preco-verde': package === environment.selected.package }">
+        <div class="col-md-12 margin-top-10" >
+          <div class="text-center preco-center">
+            <div class="preco-pacote">R$</div>
+            <div class="preco-numero">{{package.price | number : 2}}</div>
+            <div class="preco-pacote margin-top-10">/Mês</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+  <!-- Fim do ng-repeat -->
+</div>

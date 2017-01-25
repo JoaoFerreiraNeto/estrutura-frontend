@@ -1,0 +1,189 @@
+<div class="row" style="margin-top:60px">
+
+  <!-- Retry - Template: Installation -->
+  <div ng-if="!environment.distributions" class="col-md-9 col-lg-10 conteudo">
+    <div class="instalation col-xs-12">
+      <div class="wrap col-xs-12">
+         <div class="title col-xs-3"></div>
+        <div class="body col-xs-12"></div>
+
+        <div class="title col-xs-3"></div>
+        <div class="body col-xs-12"></div>
+
+        <div class="body col-xs-12"></div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3 col-lg-2 sidebar"></div>
+
+  <!-- Content -->
+  <div ng-if="environment.distributions" class="col-md-9 col-lg-10 conteudo">
+    <div class="col-md-12 padding-zero titulo">Nome do ambiente</div>
+    <div class="col-md-12 div-bege">
+      <div class="align-block-center">
+        <div ui-view="identifier"></div>
+      </div>
+    </div>
+    <div class="titulo">Pacote</div>
+    <div class="col-md-12 div-bege padding-zero">
+      <div class="padding-bloco align-block-center">
+        <div ui-view="distributions"></div>
+        <div ui-view="packages"></div>
+      </div>
+    </div>
+    <div class="col-md-12 padding-zero titulo">Customização</div>
+    <div class="col-md-12 div-bege">
+      <div class="align-block-center">
+        <div ui-view="customization"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Sidebar -->
+  <div class="col-md-3 col-lg-2 sidebar">
+    <div class="title-sidebar margin-bottom-10">Detalhes</div>
+
+    <!-- DISTRIBUIÇÃO -->
+    <div class="texto-sidebar row padding-bottom-10" ng-show="environment.selected.distribution">
+      <div class="col-md-9">
+        DISTRIBUIÇÃO
+      </div>
+      <div class="col-md-3">
+        <i class="fa-ok float-right" aria-hidden="true"></i>
+      </div>
+    </div>
+    <div class="div-distribuicao col-md-12" ng-show="environment.selected.distribution">
+      <div ng-if="environment.selected.distribution">
+        <div class="">
+          {{ environment.selected.distribution.distribuition }} {{ environment.selected.distribution.version }}
+        </div>
+      </div>
+    </div>
+    <!-- FIM DA DISTRIBUIÇÃO -->
+
+    <!-- PACOTE -->
+    <div class="texto-sidebar row padding-top-10 padding-bottom-10" ng-show="environment.selected.package">
+      <div class="col-md-9">
+        PACOTE
+      </div>
+      <div class="col-md-3">
+        <i class="fa-ok float-right" aria-hidden="true"></i>
+      </div>
+    </div>
+    <div class="col-md-12 padding-10 msg-vlr-parcial" ng-show="environment.selected.package && credentials.accountBirthday">
+      <i class="fa fa-exclamation-triangle" aria-hidden="true"></i>
+      <b>
+        Valor parcial até o próximo dia {{credentials.accountBirthday | date:'dd'}}
+      </b>
+    </div>
+    <div class="div-pacote col-md-12" ng-show="environment.selected.package">
+      <div ng-if="environment.selected.package">
+        <div class="">
+          <div class="col-md-12 margin-bottom-10 nome-instancia">
+            {{ environment.selected.package.dsInstanceType }}
+          </div>
+        </div>
+        <div class="">
+          <div class="col-md-7">
+            {{ environment.selected.package.memory }} GB Memória
+          </div>
+          <div class="col-md-5">
+            {{ environment.selected.package.prorataValue ? 'R$ ' + (environment.selected.package.prorataValue | number : 2) : (environment.selected.package.price | number : 2) }}
+          </div>
+        </div>
+        <div class="">
+          <div class="col-md-12">
+            {{ environment.selected.package.storage }} GB Disco
+          </div>
+        </div>
+        <div class="">
+          <div class="col-md-12">
+            {{ environment.selected.package.cpu }} CPUs
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-- FIM DO PACOTE -->
+
+    <!-- CUSTOMIZAÇÃO -->
+    <div class="texto-sidebar row padding-top-10 padding-bottom-10" ng-show="environment.selected.storage || environment.selected.bandwidth">
+      <div class="col-md-9">
+        CUSTOMIZAÇÃO
+      </div>
+      <div class="col-md-3">
+        <i class="fa-ok float-right" aria-hidden="true"></i>
+      </div>
+    </div>
+
+    <div class="col-md-12 div-customizacao" ng-show="environment.selected.storage">
+      <div ng-if="environment.selected.storage">
+        <div class="col-md-2">
+          <i class="fa-disco" aria-hidden="true"></i>
+        </div>
+        <div class="col-md-5">
+          {{ environment.selected.storage.size + ' GB' }}
+        </div>
+        <div class="col-md-5 text-right">
+          {{ credentials.accountBirthday ? 'R$ ' + (environment.selected.storage.prorataValue | number : 2) : (environment.selected.storage.value | number : 2) }}
+        </div>
+      </div>
+    </div>
+    <div class="col-md-12 div-customizacao" ng-show="environment.selected.bandwidth">
+      <div ng-if="environment.selected.bandwidth">
+        <div class="col-md-2">
+          <i class="fa-banda" aria-hidden="true"></i>
+        </div>
+        <div class="col-md-5">
+          {{ environment.selected.bandwidth.size + ' GB/s' }}
+        </div>
+        <div class="col-md-5 text-right">
+          {{ credentials.accountBirthday ? 'R$ ' + (environment.selected.bandwidth.prorataValue | number : 2) : (environment.selected.bandwidth.value | number : 2) }}
+        </div>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-md-12 requerido margin-top-10">
+        <div class="col-md-8 padding-zero input-nome">
+          <input ng-model="environment.voucher.voucher" class="input-voucher" ng-class="{'input-voucher-ok': environment.voucher.value >= 1}" placeholder="Cupom de desconto" type="text" size=30 maxlength=30 name="voucher">
+        </div>
+        <div class="col-md-4 padding-zero aplicar center" ng-class="{'aplicado': environment.voucher.value >= 1}">
+          <div href="" ng-click="controller.applyVoucher()" class="margin-top-10">Aplicar</i></div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <div ng-if="environment.voucher.value >= 1">
+        <div class="col-md-12 text-right vlr">
+           {{ (environment.selected.package.prorataValue + environment.selected.bandwidth.prorataValue + environment.selected.storage.prorataValue | number : 2)}}
+        </div>
+        <div class="col-md-12 text-right vlr">
+           -{{environment.voucher.value | number : 2}}
+        </div>
+      </div>
+      <div class="col-md-12 text-right valor-total" ng-show="credentials.accountBirthday">
+        <small class="label-total">
+          Total R$
+        </small>
+         {{ ((environment.selected.package.prorataValue + environment.selected.bandwidth.prorataValue + environment.selected.storage.prorataValue) - environment.voucher.value | number : 2)}}
+      </div>
+      <div class="col-md-12 text-right valor-total" ng-show="!credentials.accountBirthday">
+        <small class="label-total">
+          Total R$
+        </small>
+         {{ ((environment.selected.package.price + environment.selected.bandwidth.value + environment.selected.storage.value) - environment.voucher.value | number : 2)}}
+      </div>
+    </div>
+
+    <!-- FIM DA CUSTOMIZAÇÃO -->
+
+    <!-- BTN INSTALAR -->
+    <div><small class="requerido" ng-show="!environment.selected.environmentName">* Preencha o campo nome.</small></div>
+    <button ng-disabled="controller.btnInstallDisabled" type="button" class="btn btn-instalar margin-bottom-5 margin-top-10" ng-click="controller.install()">{{ controller.btnInstallLabel }}</button>
+    <div align="center" id="sidebar-bottom">
+      <a class="cancelar-criacao" ui-sref="environment.list">ou cancelar</a>
+    </div>
+    <!-- FIM BTN INSTALAR -->
+  </div>
+  </div>
+</div>

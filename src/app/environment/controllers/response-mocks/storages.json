@@ -1,0 +1,22 @@
+[
+  {
+    "id": 1,
+    "sizeGb": 10,
+    "value": 10.4
+  },
+  {
+    "id": 2,
+    "sizeGb": 15,
+    "value": null
+  },
+  {
+    "id": 3,
+    "sizeGb": 17,
+    "value": null
+  },
+  {
+    "id": 4,
+    "sizeGb": 20,
+    "value": 50.3
+  }
+]

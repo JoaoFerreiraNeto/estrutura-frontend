@@ -1,0 +1,42 @@
+<tr-tabs-navbar></tr-tabs-navbar>
+<div class="col-md-12" style="padding:30px" data-ng-init="redirect()">
+    <div class="titulo">Verifique e gerencie seus ambientes</div>
+    <div class="subtitulo">Veja as informações sobre o uso de seus servidores</div>
+</div>
+<div class="col-md-12">
+    <div class="col-sm-12 margin-bottom-25" ng-repeat="environment in controller.environments">
+        <div ng-switch="environment.status">
+            <div ng-switch-when="CREATING">
+                <div ng-include="'./app/environment/views/environment-section-creating.html'"></div>
+            </div>
+            <div ng-switch-when="UPDATING">
+                <div ng-include="'./app/environment/views/environment-section-creating.html'"></div>
+            </div>
+            <div ng-switch-when="COMPLETE">
+                <div ng-include="'./app/environment/views/environment-section-complete.html'"></div>
+            </div>
+            <div ng-switch-when="DELETE">
+                <div ng-include="'./app/environment/views/environment-section-deleted.html'"></div>
+            </div>
+            <div ng-switch-when="ERROR">
+                <div ng-include="'./app/environment/views/environment-section-error.html'"></div>
+            </div>
+            <tr-environment-edition
+                    ng-if="controller.editing.environment === environment && controller.editing.action === 'downgrade'"
+                    environment="controller.editing.environment"
+                    packages="controller.packages[environment.imageId]"
+                    action="downgrade">
+            </tr-environment-edition>
+            <tr-environment-edition
+                    ng-if="controller.editing.environment === environment && controller.editing.action === 'upgrade'"
+                    environment="controller.editing.environment"
+                    packages="controller.packages[environment.imageId]"
+                    action="upgrade">
+            </tr-environment-edition>
+            <tr-metrics-chart
+                    ng-if="controller.editing.environment === environment && controller.editing.action === 'metrics'"
+                    environment="controller.editing.environment">
+            </tr-metrics-chart>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,16 @@
+<!--Navbar-->
+<nav class="navbar navbar-style navbar-fixed-top">
+  <div class="col-md-12">
+    <div class="navbar-header logo">
+      <a href="#">
+        <img src="assets/images/logoterra.png">
+      </a>
+    </div>
+    <div class="col-md-3 perfil" align="right">
+      <label class="usuario" style="text-transform: capitalize"><i class="fa fa-user margin-right-5"></i>{{ credentials.username ? 'Olá, ' + (credentials.username.split(' ')[0]) : 'Seja bem-vindo!' }}</label>
+      <a href="" ng-click="controller.logout()" style="color: #fff" title="Sair" alt="Sair"><i class="fa fa-sign-out"></i></a>
+    </div>
+  </div>
+</nav>
+<!--End Navbar-->
+<ui-view/>

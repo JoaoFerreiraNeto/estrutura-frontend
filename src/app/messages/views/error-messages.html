@@ -1,0 +1,13 @@
+<div class="notifications col-md-8">
+    <div class="title col-md-3"><i class="fa fa-exclamation-circle"></i> {{ controller.message.type }}</div>
+    <div class="body col-md-7">
+        <div class="text">
+            <p>
+                {{ controller.message.text }}
+            </p>
+        </div>
+    </div>
+    <div class="link col-md-2">
+        <a href="" class="btn red" ng-click="closeThisDialog()">Fechar</a>
+    </div>
+</div>
